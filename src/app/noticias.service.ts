@@ -5,7 +5,22 @@ import { Injectable } from '@angular/core';
 })
 export class NoticiasService {
 
-  constructor() { }
+  autores = ['Maria','João', 'Ana', 'hokage'];
+  noticias=[];
+  constructor() {}
+  
+  submit(autor, noticia, publicar){
+    let n = {
+      'id': Math.random(),
+      'autor': autor,
+      'noticia': noticia,
+      'publicar': publicar,
+      'views': 0
+    }
+    console.log(n)
+  }
 
-  autor=['Maria','João']
+  listaautores(){
+    return this.autores
+  }
 }
