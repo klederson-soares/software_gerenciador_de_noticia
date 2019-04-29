@@ -18,6 +18,12 @@ export class AppComponent {
   salvar(){
     this.service.submit(this.autor, this.noticia, this.publicar);
     this.tela = 'publicar';
+    this.autor = '';
+    this.noticia = '';
+  }
+  limpar(){
+    this.autor = '';
+    this.noticia = '';
   }
   telaInicio(){
     this.tela = 'inicio'
@@ -33,5 +39,15 @@ export class AppComponent {
 
   telaEstatistica(){
     this.tela = 'estatistica'
+  }
+  publica(valor){
+    this.service.publicar(valor)
+  }
+  ver(valor){
+    this.service.ver(valor);
+    this.tela = 'ver'
+  }
+  valor(){
+    return 'active'
   }
 }

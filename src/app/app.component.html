@@ -1,35 +1,22 @@
 <div class="container">
-  <div id="col1">
-    <table class="table">
-      <thead>
-        <tr>
-          <th><a class="nav-link" href="#inicio" (click)="telaInicio()">Inicio</a></th>
-          <th><a class="nav-link" href="#cadastrar" (click)="telaCadastro()">Cadastrar</a></th>
-          <th><a class="nav-link" href="#publicar" (click)="telaPublicar()">Publicar</a></th>
-          <th><a class="nav-link" href="#statistica" (click)="telaEstatistica()">Estatistica</a></th>
-        </tr>
-      </thead>
-    </table>
-  </div>
-
-  <ul class="nav nav-tabs">
-    <li class="nav-item">
-      <a class="nav-link active" href="#inicio" (click)="telaInicio()">Inicio</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#cadastrar" (click)="telaCadastro()">Cadastrar</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#publicar" (click)="telaPublicar()">Publicar</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#Estatistica" (click)="telaEstatistica()">Estatistica</a>
-    </li>
-  </ul>
+    <nav class="nav nav-pills nav-justified">
+      <a class="nav-item nav-link" href="#Inicial" (click)="telaInicio()">Inicial</a>
+      <a class="nav-item nav-link" href="#Cadastrar" (click)="telaCadastro()">Cadastrar</a>
+      <a class="nav-item nav-link" href="#Publicar" (click)="telaPublicar()">Publicar</a>
+      <a class="nav-item nav-link" href="#Estatísticas" (click)="telaEstatistica()">Estatísticas</a>
+    </nav>
 
   <div *ngIf="tela == 'inicio'">
     <div class="form-group">
       <h3>Noticias</h3>
+      <div *ngFor="let n of service.listaDeNoticias()">
+        <div *ngIf="n.publicar">
+          <li>
+            {{ n.noticia }}
+            <button class="btn btn-success" (click)="ver(n)">Ver</button>
+          </li>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -41,6 +28,7 @@
       <div class="form-group">
         <label for="noticia">Autor:</label>
         <select class="form-control" name="autor" id="autor" [(ngModel)]="autor" required>
+          <option value="" selected disabled>Selecione um Autor</option>
           <option *ngFor="let autor of service.listaautores()">{{autor}}</option>
         </select>
       </div>
@@ -48,12 +36,13 @@
 
       <div class="form-group">
         <label for="noticia">Noticia:</label><br>
-        <textarea class="form-control" rows="5" id="noticia" name="noticia" placeholder="Noticia" [(ngModel)]="noticia" required></textarea>
+        <textarea class="form-control" rows="5" id="noticia" name="noticia" placeholder="Noticia" [(ngModel)]="noticia"
+          required></textarea>
       </div>
       <br>
 
       <button class="btn btn-success" (click)="salvar()" [disabled]="!formcadastro.form.valid">Salvar</button>
-      <button class="btn btn-secondary">Limpar</button>
+      <button class="btn btn-secondary" (click)="limpar()">Limpar</button>
     </form>
   </div>
 
@@ -61,6 +50,12 @@
   <div *ngIf="tela == 'publicar'">
     <div class="form-group">
       <h3>Publicar</h3>
+      <div *ngFor="let n of service.listaDeNoticias()">
+        <div *ngIf="n.publicar==false">
+          {{ n.noticia }}
+          <button class="btn btn-success" (click)="publica(n)">Publicar</button>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -68,7 +63,27 @@
     <div class="form-group">
       <h3>Estatísticas</h3>
     </div>
+
+    <div *ngFor="let noticia of service.quantidadeDeNoticiasPorAutor()">
+      <div>
+        {{ noticia.autor }} {{ noticia.valor }}
+      </div>
+    </div>
+
+    <div>
+    {{ service.autorQueMaisPublicou() }}
+    </div>
+
+    <div *ngFor="let noticia of service.rankingDeNoticias()">
+    <div *ngIf="noticia.publicar == true">{{ noticia.views }}</div>
+    <div *ngIf="noticia.publicar == true">{{ noticia.noticia }}</div>
+    </div>
   </div>
 
-
+  <div *ngIf="tela === 'ver'">
+    <h3>autor</h3>
+    {{ service.noticia.autor }}
+    <h3>Noticia</h3>
+    {{ service.noticia.noticia }}
+  </div>
 </div>

@@ -1,5 +1,8 @@
-a {
-    color: aliceblue;
+nav {
     background-color: black;
-    opacity: 0.9;
+    height: 70px;
+    align-items: center;
+}
+a {
+    color: white;
 }
