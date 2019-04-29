@@ -7,7 +7,7 @@
     </nav>
 
   <div *ngIf="tela == 'inicio'">
-    <div class="form-group">
+    <div class="form-group"><br/>
       <h3>Noticias</h3>
       <div *ngFor="let n of service.listaDeNoticias()">
         <div *ngIf="n.publicar">
@@ -21,9 +21,9 @@
   </div>
 
   <div *ngIf="tela == 'cadastro'">
-    <form #formcadastro="ngForm">
+    <form #formcadastro="ngForm"><br/>
       <h3>Cadastrar</h3>
-      <br>
+      <br/>
 
       <div class="form-group">
         <label for="noticia">Autor:</label>
@@ -32,14 +32,14 @@
           <option *ngFor="let autor of service.listaautores()">{{autor}}</option>
         </select>
       </div>
-      <br>
+      <br/>
 
       <div class="form-group">
         <label for="noticia">Noticia:</label><br>
         <textarea class="form-control" rows="5" id="noticia" name="noticia" placeholder="Noticia" [(ngModel)]="noticia"
           required></textarea>
       </div>
-      <br>
+      <br/>
 
       <button class="btn btn-success" (click)="salvar()" [disabled]="!formcadastro.form.valid">Salvar</button>
       <button class="btn btn-secondary" (click)="limpar()">Limpar</button>
@@ -48,7 +48,7 @@
 
 
   <div *ngIf="tela == 'publicar'">
-    <div class="form-group">
+    <div class="form-group"><br/>
       <h3>Publicar</h3>
       <div *ngFor="let n of service.listaDeNoticias()">
         <div *ngIf="n.publicar==false">
@@ -60,25 +60,29 @@
   </div>
 
   <div *ngIf="tela == 'estatistica'">
-    <div class="form-group">
+    <div class="form-group"><br/>
       <h3>Estatísticas</h3>
     </div>
+    <br/>
 
     <div *ngFor="let noticia of service.quantidadeDeNoticiasPorAutor()">
       <div>
         {{ noticia.autor }} {{ noticia.valor }}
       </div>
     </div>
+    <br/>
 
     <div>
     {{ service.autorQueMaisPublicou() }}
     </div>
+    <br/>
 
     <div *ngFor="let noticia of service.rankingDeNoticias()">
     <div *ngIf="noticia.publicar == true">{{ noticia.views }}</div>
     <div *ngIf="noticia.publicar == true">{{ noticia.noticia }}</div>
     </div>
   </div>
+  <br/>
 
   <div *ngIf="tela === 'ver'">
     <h3>autor</h3>
@@ -86,4 +90,5 @@
     <h3>Noticia</h3>
     {{ service.noticia.noticia }}
   </div>
+  <br/>
 </div>
