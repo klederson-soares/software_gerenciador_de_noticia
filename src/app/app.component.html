@@ -1,13 +1,13 @@
 <div class="container">
-    <nav class="nav nav-pills nav-justified">
-      <a class="nav-item nav-link" href="#Inicial" (click)="telaInicio()">Inicial</a>
-      <a class="nav-item nav-link" href="#Cadastrar" (click)="telaCadastro()">Cadastrar</a>
-      <a class="nav-item nav-link" href="#Publicar" (click)="telaPublicar()">Publicar</a>
-      <a class="nav-item nav-link" href="#Estatísticas" (click)="telaEstatistica()">Estatísticas</a>
-    </nav>
+  <nav class="nav nav-pills nav-justified">
+    <a class="nav-item nav-link" href="#Inicial" (click)="telaInicio()">Inicial</a>
+    <a class="nav-item nav-link" href="#Cadastrar" (click)="telaCadastro()">Cadastrar</a>
+    <a class="nav-item nav-link" href="#Publicar" (click)="telaPublicar()">Publicar</a>
+    <a class="nav-item nav-link" href="#Estatísticas" (click)="telaEstatistica()">Estatísticas</a>
+  </nav>
 
   <div *ngIf="tela == 'inicio'">
-    <div class="form-group"><br/>
+    <div class="form-group"><br />
       <h3>Noticias</h3>
       <div *ngFor="let n of service.listaDeNoticias()">
         <div *ngIf="n.publicar">
@@ -21,9 +21,9 @@
   </div>
 
   <div *ngIf="tela == 'cadastro'">
-    <form #formcadastro="ngForm"><br/>
+    <form #formcadastro="ngForm"><br />
       <h3>Cadastrar</h3>
-      <br/>
+      <br />
 
       <div class="form-group">
         <label for="noticia">Autor:</label>
@@ -32,14 +32,14 @@
           <option *ngFor="let autor of service.listaautores()">{{autor}}</option>
         </select>
       </div>
-      <br/>
+      <br />
 
       <div class="form-group">
         <label for="noticia">Noticia:</label><br>
         <textarea class="form-control" rows="5" id="noticia" name="noticia" placeholder="Noticia" [(ngModel)]="noticia"
           required></textarea>
       </div>
-      <br/>
+      <br />
 
       <button class="btn btn-success" (click)="salvar()" [disabled]="!formcadastro.form.valid">Salvar</button>
       <button class="btn btn-secondary" (click)="limpar()">Limpar</button>
@@ -48,7 +48,7 @@
 
 
   <div *ngIf="tela == 'publicar'">
-    <div class="form-group"><br/>
+    <div class="form-group"><br />
       <h3>Publicar</h3>
       <div *ngFor="let n of service.listaDeNoticias()">
         <div *ngIf="n.publicar==false">
@@ -60,29 +60,42 @@
   </div>
 
   <div *ngIf="tela == 'estatistica'">
-    <div class="form-group"><br/>
+    <div class="form-group"><br />
       <h3>Estatísticas</h3>
     </div>
-    <br/>
-
-    <div *ngFor="let noticia of service.quantidadeDeNoticiasPorAutor()">
+    <br />
+    <div class="list-group">
       <div>
-        {{ noticia.autor }} {{ noticia.valor }}
+        <a class="list-group-item list-group-item-action">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">• Quantidade de noticia por autor</h5>
+          </div>
+          <p class="mb-1" *ngFor="let noticia of service.quantidadeDeNoticiasPorAutor()">{{ noticia.autor }} {{
+            noticia.valor }}</p>
+        </a>
+      </div>
+    </div>
+    <br />
+
+    <div class="list-group">
+      <div>
+        <a class="list-group-item list-group-item-action">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">• Autores que mais publicaram</h5>
+          </div>
+          <p class="mb-1">{{ service.autorQueMaisPublicou() }}</p>
+        </a>
       </div>
     </div>
     <br/>
 
-    <div>
-    {{ service.autorQueMaisPublicou() }}
-    </div>
-    <br/>
-
+    <h4>Ranking de noticias mais visualizadas</h4>
     <div *ngFor="let noticia of service.rankingDeNoticias()">
-    <div *ngIf="noticia.publicar == true">{{ noticia.views }}</div>
-    <div *ngIf="noticia.publicar == true">{{ noticia.noticia }}</div>
+      <div *ngIf="noticia.publicar == true">{{ noticia.views }}</div>
+      <div *ngIf="noticia.publicar == true">{{ noticia.noticia }}</div>
     </div>
   </div>
-  <br/>
+  <br />
 
   <div *ngIf="tela === 'ver'">
     <h3>autor</h3>
@@ -90,5 +103,5 @@
     <h3>Noticia</h3>
     {{ service.noticia.noticia }}
   </div>
-  <br/>
+  <br />
 </div>
