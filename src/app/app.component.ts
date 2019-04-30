@@ -13,6 +13,7 @@ export class AppComponent {
   autor = '';
   publicar = false;
   noticia = '';
+  noticia_visualizada = null;
 
   constructor(private service: NoticiasService){}
   salvar(){
@@ -40,14 +41,14 @@ export class AppComponent {
   telaEstatistica(){
     this.tela = 'estatistica'
   }
+  
   publica(valor){
-    this.service.publicar(valor)
+    this.service.publica(valor)
   }
+
   ver(valor){
     this.service.ver(valor);
-    this.tela = 'ver'
-  }
-  valor(){
-    return 'active'
+    this.noticia_visualizada = valor;
+    this.tela = 'ver';
   }
 }

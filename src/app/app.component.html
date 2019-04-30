@@ -1,9 +1,52 @@
 <div class="container">
+  <div>
+    <h1>
+      <i class="fa fa-bookmark">{{ title }}</i>
+    </h1><br />
+  </div>
+  <!--
   <nav class="nav nav-pills nav-justified">
     <a class="nav-item nav-link" href="#Inicial" (click)="telaInicio()">Inicial</a>
     <a class="nav-item nav-link" href="#Cadastrar" (click)="telaCadastro()">Cadastrar</a>
     <a class="nav-item nav-link" href="#Publicar" (click)="telaPublicar()">Publicar</a>
     <a class="nav-item nav-link" href="#Estatísticas" (click)="telaEstatistica()">Estatísticas</a>
+  </nav>
+  -->
+
+  <nav>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+      <p *ngIf="tela == 'inicio'">
+        <a class="nav-item nav-link active" href="#Inicial" (click)="telaInicio()">Inicial</a>
+      </p>
+
+      <p *ngIf="tela != 'inicio'">
+        <a class="nav-item nav-link" href="#Inicial" (click)="telaInicio()">Inicial</a>
+      </p>
+
+      <p *ngIf="tela == 'cadastro'">
+        <a class="nav-item nav-link active" href="#Cadastrar" (click)="telaCadastro()">Cadastrar</a>
+      </p>
+
+      <p *ngIf="tela != 'cadastro'">
+        <a class="nav-item nav-link" href="#Cadastrar" (click)="telaCadastro()">Cadastrar</a>
+      </p>
+
+      <p *ngIf="tela == 'publicar'">
+        <a class="nav-item nav-link active" href="#Publicar" (click)="telaPublicar()">Publicar</a>
+      </p>
+
+      <p *ngIf="tela != 'publicar'">
+        <a class="nav-item nav-link " href="#Publicar" (click)="telaPublicar()">Publicar</a>
+      </p>
+
+      <p *ngIf="tela == 'estatistica'">
+        <a class="nav-item nav-link active" href="#Estatísticas" (click)="telaEstatistica()">Estatísticas</a>
+      </p>
+
+      <p *ngIf="tela != 'estatistica'">
+        <a class="nav-item nav-link" href="#Estatísticas" (click)="telaEstatistica()">Estatísticas</a>
+      </p>
+    </div>
   </nav>
 
   <div *ngIf="tela == 'inicio'">
@@ -13,8 +56,9 @@
         <div *ngIf="n.publicar">
           <li>
             {{ n.noticia }}
-            <button class="btn btn-success" (click)="ver(n)">Ver</button>
+            <button class="btn btn-success" (click)="ver(n);">Ver</button>
           </li>
+          <br />
         </div>
       </div>
     </div>
@@ -71,7 +115,8 @@
             <h5 class="mb-1">• Quantidade de noticia por autor</h5>
           </div>
           <p class="mb-1" *ngFor="let noticia of service.quantidadeDeNoticiasPorAutor()">{{ noticia.autor }} {{
-            noticia.valor }}</p>
+            noticia.valor }}
+          </p>
         </a>
       </div>
     </div>
@@ -87,21 +132,30 @@
         </a>
       </div>
     </div>
-    <br/>
+    <br />
 
-    <h4>Ranking de noticias mais visualizadas</h4>
-    <div *ngFor="let noticia of service.rankingDeNoticias()">
-      <div *ngIf="noticia.publicar == true">{{ noticia.views }}</div>
-      <div *ngIf="noticia.publicar == true">{{ noticia.noticia }}</div>
+
+
+    <div class="list-group">
+      <div>
+        <a class="list-group-item list-group-item-action">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">•Ranking de noticias mais visualizadas </h5>
+          </div>
+          <div *ngFor="let noticia of service.rankingDeNoticias()">
+            <p class="mb-1" *ngIf="noticia.publicar == true">{{ noticia.views }} {{ noticia.noticia }}</p>
+          </div>
+        </a>
+      </div>
     </div>
+
+
+
   </div>
-  <br />
 
   <div *ngIf="tela === 'ver'">
     <h3>autor</h3>
-    {{ service.noticia.autor }}
+    {{ noticia_visualizada.autor }}
     <h3>Noticia</h3>
-    {{ service.noticia.noticia }}
+    {{ noticia_visualizada.noticia }}
   </div>
-  <br />
-</div>

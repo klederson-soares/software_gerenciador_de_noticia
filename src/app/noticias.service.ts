@@ -7,7 +7,7 @@ export class NoticiasService {
 
   autores = ['Maria','João', 'Ana', 'Hokage'];
   noticias=[];
-  noticia = {};
+  visualizar = {};
   constructor() {}
   
   submit(autor, noticia, publicar){
@@ -28,7 +28,7 @@ export class NoticiasService {
   listaautores(){
     return this.autores
   }
-  publicar(valor){
+  publica(valor){
     for (let noticia of this.noticias){
       if (noticia.id === valor.id){
         valor.publicar = true
@@ -36,15 +36,9 @@ export class NoticiasService {
     }
   }
   ver(valor){
-    for (let noticia of this.noticias){
-      if (noticia.id === valor.id){
+
         valor.views++
-        this.noticia = {
-          'autor': valor.autor,
-          'noticia': valor.noticia
-        }
-      }
-    }
+
   }
 
   quantidadeDeNoticiasPorAutor() {
